@@ -11,6 +11,12 @@ var argv = yargs
   .demandCommand(1)
   .command('about', 'Info about the CLI', about)
   .command('next', 'Get next rocket launch',
+    function (yargs) {
+      return yargs.option('d', {
+        alias: 'details',
+        describe: 'Details about the next launch'
+      });
+    },
     rocketLaunch.nextLaunch
   )
   .help('h')
