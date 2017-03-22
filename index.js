@@ -24,5 +24,5 @@ var argv = yargs
   .argv;
 
 function about() {
-  console.log(chalk.green('Welcome to SIC [Space Information Center]'), '- CLI for space information');
+  console.log(chalk.green('Welcome to Space CLI'), '- a CLI for space information' + '\n\n' + 'Credits:' + '\n' + 'https://launchlibrary.net/ - API documentation for upcoming launches');
 }
