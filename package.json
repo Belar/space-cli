@@ -15,7 +15,11 @@
     "cli"
   ],
   "author": "Belar <belar@belardesign.com>",
-  "license": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Belar/space-cli.git"
+  },
   "bin": {
     "space": "./index.js"
   },
