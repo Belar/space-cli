@@ -17,7 +17,7 @@ var argv = yargs
         describe: 'Details about the next launch'
       }).option('tz', {
         alias: 'timezone',
-        describe: 'Define time zone for time info'
+        describe: 'Define time zone for time info e.g. America/New_York, Europe/Paris, Asia/Shanghai'
       });
     },
     rocketLaunch.nextLaunch
