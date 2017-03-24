@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const yargs = require('yargs');
 
 // ./modules
-const rocketLaunch = require('./modules/rocketLaunch');
+const rocketLaunch = require('./lib/modules/rocketLaunch');
 
 var argv = yargs
   .usage('Usage: $0 <command> [options]')
