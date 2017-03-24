@@ -15,6 +15,9 @@ var argv = yargs
       return yargs.option('d', {
         alias: 'details',
         describe: 'Details about the next launch'
+      }).option('tz', {
+        alias: 'timezone',
+        describe: 'Define time zone for time info'
       });
     },
     rocketLaunch.nextLaunch
