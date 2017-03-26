@@ -7,7 +7,7 @@ const yargs = require('yargs');
 const rocketLaunch = require('./lib/modules/rocketLaunch');
 
 var argv = yargs
-  .usage('Usage: $0 <command> [options]')
+  .usage('Usage: space <command> [options]')
   .demandCommand(1)
   .command('about', 'Info about the CLI', about)
   .command('next', 'Get next rocket launch',
