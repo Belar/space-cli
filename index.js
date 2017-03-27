@@ -5,6 +5,7 @@ const yargs = require('yargs');
 
 // ./modules
 const rocketLaunch = require('./lib/modules/rocketLaunch');
+const helpers = require('./lib/helpers');
 
 var argv = yargs
   .usage('Usage: space <command> [options]')
@@ -27,5 +28,5 @@ var argv = yargs
   .argv;
 
 function about() {
-  console.log(chalk.green('Welcome to Space CLI'), '- a CLI for space information' + '\n\n' + 'Credits:' + '\n' + 'https://launchlibrary.net/ - API documentation for upcoming launches');
+  helpers.printMessage(chalk.green('Welcome to Space CLI'), '- a CLI for space information' + '\n\n' + 'Credits:' + '\n' + 'https://launchlibrary.net/ - API documentation for upcoming launches');
 }
