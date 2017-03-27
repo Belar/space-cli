@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js lib/*",
-    "test": "mocha"
+    "test": "mocha ./test/**/*.test.js"
   },
   "keywords": [
     "space",
