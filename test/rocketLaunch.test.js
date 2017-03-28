@@ -28,7 +28,6 @@ describe('Rocket launch', function () {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(helpers, 'printMessage');
-    sandbox.stub(time, 'convertTimezone').yields('Unrecognised time zone.');
   });
 
   afterEach(function () {
@@ -59,6 +58,8 @@ describe('Rocket launch', function () {
     });
 
     it('should call printMessage twice with time conversion error', function (done) {
+      sandbox.stub(time, 'convertTimezone').yields('Unrecognised time zone.');
+
       rocketLaunch.nextLaunch({
         timezone: 'wrongTimezone'
       });
