@@ -1,0 +1,16 @@
+/* eslint-disable */
+
+exports.nextSingleResponse = {
+  "total": 1,
+  "launches": [{
+    "id": 1234,
+    "name": "Ariane 5 ECA | SGDC 1 & Koreasat 7",
+    "net": "March 20, 2017 13:31:00 UTC",
+    "vidURLs": ["http:\/\/www.arianespace.com\/mission\/ariane-flight-va236"],
+    "rocket": {
+      "name": "Ariane 5 ECA"
+    }
+  }],
+  "offset": 0,
+  "count": 1
+};
