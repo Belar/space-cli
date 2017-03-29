@@ -68,5 +68,18 @@ describe('Rocket launch', function () {
         done();
       });
     });
+
+    it('should call printMessage once for each launch', function (done) {
+      let launchCount = 5;
+      rocketLaunch.nextLaunch({
+        limit: launchCount
+      });
+
+      moxios.wait(function () {
+        expect(helpers.printMessage).to.be.callCount(launchCount);
+        done();
+      });
+    });
+
   });
 });
