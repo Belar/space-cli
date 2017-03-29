@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
 const yargs = require('yargs');
 
 // ./modules
 const rocketLaunch = require('./lib/modules/rocketLaunch');
-const helpers = require('./lib/helpers');
+const info = require('./lib/modules/info');
 
 var argv = yargs
   .usage('Usage: space <command> [options]')
   .demandCommand(1)
-  .command('about', 'Info about the CLI', about)
+  .command('about', 'Info about the CLI', info.about)
   .command('next', 'Get next rocket launch',
     function (yargs) {
       return yargs.option('d', {
@@ -26,7 +25,3 @@ var argv = yargs
   .help('h')
   .alias('h', 'help')
   .argv;
-
-function about() {
-  helpers.printMessage(chalk.green('Welcome to Space CLI'), '- a CLI for space information' + '\n\n' + 'Credits:' + '\n' + 'https://launchlibrary.net/ - API documentation for upcoming launches');
-}
