@@ -12,7 +12,6 @@ chai.use(sinonChai);
 
 const rocketLaunch = require('../lib/modules/rocketLaunch');
 const helpers = require('../lib/helpers');
-const time = require('../lib/modules/time');
 
 const nextResponse = require('./mockData.js');
 
@@ -58,7 +57,7 @@ describe('Rocket launch', function () {
     });
 
     it('should call printMessage twice with time conversion error', function (done) {
-      sandbox.stub(time, 'convertTimezone').yields('Unrecognised time zone.');
+      sandbox.stub(helpers, 'convertTimezone').yields('Unrecognised time zone.');
 
       rocketLaunch.nextLaunch({
         timezone: 'wrongTimezone'
