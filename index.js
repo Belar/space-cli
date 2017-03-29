@@ -18,6 +18,9 @@ var argv = yargs
       }).option('tz', {
         alias: 'timezone',
         describe: 'Define time zone for time info e.g. America/New_York, Europe/Paris, Asia/Shanghai'
+      }).option('lt', {
+        alias: 'limit',
+        describe: 'Define amount of upcoming events to show'
       });
     },
     rocketLaunch.nextLaunch

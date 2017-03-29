@@ -20,9 +20,15 @@ describe('Rocket launch', function () {
 
   beforeEach(function () {
     moxios.install();
+
     moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/1', {
       status: 200,
       responseText: nextResponse.nextSingleResponse
+    });
+
+    moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/5', {
+      status: 200,
+      responseText: nextResponse.nextMultiResponse
     });
 
     sandbox = sinon.sandbox.create();
@@ -65,6 +71,18 @@ describe('Rocket launch', function () {
 
       moxios.wait(function () {
         expect(helpers.printMessage).to.be.calledTwice;
+        done();
+      });
+    });
+
+    it('should call printMessage once for each launch', function (done) {
+      let launchCount = 5;
+      rocketLaunch.nextLaunch({
+        limit: launchCount
+      });
+
+      moxios.wait(function () {
+        expect(helpers.printMessage).to.be.callCount(launchCount);
         done();
       });
     });
