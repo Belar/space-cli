@@ -16,7 +16,7 @@ exports.nextSingleResponse = {
 };
 
 exports.nextMultiResponse = {
-  "total": 1,
+  "total": 5,
   "launches": [{
     "id": 1234,
     "name": "Ariane 5 ECA | SGDC 1 & Koreasat 7",
@@ -59,5 +59,5 @@ exports.nextMultiResponse = {
     }
   }],
   "offset": 0,
-  "count": 1
+  "count": 5
 };
