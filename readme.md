@@ -17,7 +17,7 @@ space <command> [options]
 ```
 
 **Example commands:**  
-`space next` - show id, name and time (scheduled attempted) of the next rocket launch  
-`space next -d -tz Asia/Shanghai` - show id, name, time (scheduled attempted) converted to CST time zone, available live stream options and name of the rocket
+`space next` - shows id, launch name, time (scheduled attempted) and available live stream options for the next rocket launch
+`space next -d --tz Asia/Shanghai --lt 5` - shows id, launch name, time (scheduled attempted) converted to CST time zone, name of a rocket, and missions (with type and description) for the next 5 launches
 
 Space CLI is in active development, to see currently available commands and options, use `space -h`.
