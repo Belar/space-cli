@@ -33,6 +33,7 @@ describe('Rocket launch', function () {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(helpers, 'printMessage');
+    sandbox.stub(helpers, 'printError');
   });
 
   afterEach(function () {
@@ -62,7 +63,7 @@ describe('Rocket launch', function () {
       });
     });
 
-    it('should call printMessage twice with time conversion error', function (done) {
+    it('should call printMessage once and printError with time conversion error once', function (done) {
       sandbox.stub(helpers, 'convertTimezone').yields('Unrecognised time zone.');
 
       rocketLaunch.nextLaunch({
@@ -70,7 +71,8 @@ describe('Rocket launch', function () {
       });
 
       moxios.wait(function () {
-        expect(helpers.printMessage).to.be.calledTwice;
+        expect(helpers.printError).to.be.calledOncee;
+        expect(helpers.printMessage).to.be.calledOnce;
         done();
       });
     });
@@ -83,6 +85,26 @@ describe('Rocket launch', function () {
 
       moxios.wait(function () {
         expect(helpers.printMessage).to.be.callCount(launchCount);
+        done();
+      });
+    });
+
+    it('should call printError once on request failure', function (done) {
+      moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/10', {
+        status: 403,
+        responseText: {
+          'status': 'fail',
+          'msg': 'Error message'
+        }
+      });
+
+      let launchCount = 10;
+      rocketLaunch.nextLaunch({
+        limit: launchCount
+      });
+
+      moxios.wait(function () {
+        expect(helpers.printError).to.be.calledOnce;
         done();
       });
     });
