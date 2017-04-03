@@ -87,5 +87,25 @@ describe('Rocket launch', function () {
         done();
       });
     });
+
+    it('should call printError once on request failure', function (done) {
+      moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/10', {
+        status: 403,
+        responseText: {
+          'status': 'fail',
+          'msg': 'Error message'
+        }
+      });
+
+      let launchCount = 10;
+      rocketLaunch.nextLaunch({
+        limit: launchCount
+      });
+
+      moxios.wait(function () {
+        expect(helpers.printError).to.be.calledOnce;
+        done();
+      });
+    });
   });
 });
