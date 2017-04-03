@@ -33,6 +33,7 @@ describe('Rocket launch', function () {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(helpers, 'printMessage');
+    sandbox.stub(helpers, 'printError');
   });
 
   afterEach(function () {
