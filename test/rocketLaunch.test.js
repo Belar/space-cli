@@ -63,7 +63,7 @@ describe('Rocket launch', function () {
       });
     });
 
-    it('should call printMessage twice with time conversion error', function (done) {
+    it('should call printMessage once and printError with time conversion error once', function (done) {
       sandbox.stub(helpers, 'convertTimezone').yields('Unrecognised time zone.');
 
       rocketLaunch.nextLaunch({
@@ -71,7 +71,8 @@ describe('Rocket launch', function () {
       });
 
       moxios.wait(function () {
-        expect(helpers.printMessage).to.be.calledTwice;
+        expect(helpers.printError).to.be.calledOncee;
+        expect(helpers.printMessage).to.be.calledOnce;
         done();
       });
     });
