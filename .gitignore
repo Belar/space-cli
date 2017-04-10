@@ -11,3 +11,6 @@ node_modules/
 
 # VS Code
 .vscode
+
+# User files
+settingsData.json
