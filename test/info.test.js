@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* global describe, it, before, after, beforeEach, afterEach */
-
 const sinon = require('sinon');
 const chai = require('chai');
 const expect = chai.expect;

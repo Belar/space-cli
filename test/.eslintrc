@@ -1,0 +1,15 @@
+{
+  "extends": "standard",
+  "rules": {
+    "semi": ["error", "always"],
+    "no-unused-expressions": ["off"]
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true
+  }
+}

@@ -1,12 +1,6 @@
 {
   "extends": "standard",
-  "plugins": [
-    "standard",
-    "promise"
-  ],
   "rules": {
-    "no-unused-vars": "off",
-    "space-before-function-paren": "off",
     "semi": ["error", "always"]
   }
 }

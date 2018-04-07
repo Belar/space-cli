@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* global describe, it, before, after, beforeEach, afterEach */
-
-const axios = require('axios');
 const moxios = require('moxios'); // axios requests mocking
 
 const sinon = require('sinon');
