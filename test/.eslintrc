@@ -10,6 +10,9 @@
     "before": true,
     "after": true,
     "beforeEach": true,
-    "afterEach": true
+    "afterEach": true,
+    "test": true,
+    "expect": true,
+    "jest": true
   }
 }

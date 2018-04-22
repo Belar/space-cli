@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js lib/*",
-    "test": "mocha ./test/**/*.test.js"
+    "test": "jest"
   },
   "keywords": [
     "space",
@@ -31,16 +31,12 @@
     "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
     "eslint": "^3.18.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
-    "mocha": "^3.2.0",
-    "moxios": "^0.3.0",
-    "sinon": "^2.1.0",
-    "sinon-chai": "^2.9.0"
+    "jest": "^22.4.3"
   }
 }
