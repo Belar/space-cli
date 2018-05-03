@@ -1,96 +1,84 @@
-const moxios = require('moxios'); // axios requests mocking
-
-const sinon = require('sinon');
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
-const expect = chai.expect;
-chai.use(sinonChai);
+const axios = require('axios');
 
 const rocketLaunch = require('../lib/modules/rocketLaunch');
 const helpers = require('../lib/helpers');
 
 const nextResponse = require('./mockData.js');
 
+jest.mock('axios');
+
 describe('Rocket launch', function () {
-  let sandbox;
-
-  beforeEach(function () {
-    moxios.install();
-
-    moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/1', {
-      status: 200,
-      responseText: nextResponse.nextSingleResponse
-    });
-
-    moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/5', {
-      status: 200,
-      responseText: nextResponse.nextMultiResponse
-    });
-
-    sandbox = sinon.sandbox.create();
-    sandbox.stub(helpers, 'printMessage');
-    sandbox.stub(helpers, 'printError');
-  });
-
-  afterEach(function () {
-    moxios.uninstall();
-
-    sandbox.restore();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('nextLaunch', function () {
-    it('should call printMessage once', function (done) {
+    it('should call printMessage once', function () {
+      const spy = jest.spyOn(helpers, 'printMessage');
+      axios.get.mockResolvedValue({
+        data: nextResponse.nextSingleResponse
+      });
+
       rocketLaunch.nextLaunch({});
 
-      moxios.wait(function () {
-        expect(helpers.printMessage).to.be.calledOnce;
-        done();
+      setTimeout(() => {
+        expect(spy).toHaveBeenCalledTimes(1);
       });
     });
 
-    it('should call printMessage once in details mode', function (done) {
+    it('should call printMessage once in details mode', function () {
+      const spy = jest.spyOn(helpers, 'printMessage');
+      axios.get.mockResolvedValue({
+        data: nextResponse.nextSingleResponse
+      });
+
       rocketLaunch.nextLaunch({
         details: true
       });
 
-      moxios.wait(function () {
-        expect(helpers.printMessage).to.be.calledOnce;
-        done();
+      setTimeout(() => {
+        expect(spy).toHaveBeenCalledTimes(1);
       });
     });
 
-    it('should call printMessage once and printError with time conversion error once', function (done) {
-      sandbox.stub(helpers, 'convertTimezone').yields('Unrecognised time zone.');
+    it('should call printMessage once and printError with time conversion error once', function () {
+      helpers.convertTimezone = jest.fn().mockReturnValue('Unrecognised time zone.');
+      const errorSpy = jest.spyOn(helpers, 'printError');
+      const messageSpy = jest.spyOn(helpers, 'printMessage');
 
       rocketLaunch.nextLaunch({
         timezone: 'wrongTimezone'
       });
 
-      moxios.wait(function () {
-        expect(helpers.printError).to.be.calledOncee;
-        expect(helpers.printMessage).to.be.calledOnce;
-        done();
+      setTimeout(() => {
+        expect(errorSpy).toHaveBeenCalledTimes(1);
+        expect(messageSpy).toHaveBeenCalledTimes(1);
       });
     });
 
-    it('should call printMessage once for each launch', function (done) {
+    it('should call printMessage once for each launch', function () {
+      const messageSpy = jest.spyOn(helpers, 'printMessage');
+      axios.get.mockResolvedValue({
+        data: nextResponse.nextMultiResponse
+      });
+
       let launchCount = 5;
       rocketLaunch.nextLaunch({
         limit: launchCount
       });
 
-      moxios.wait(function () {
-        expect(helpers.printMessage).to.be.callCount(launchCount);
-        done();
+      setTimeout(() => {
+        expect(messageSpy).toHaveBeenCalledTimes(launchCount);
       });
     });
 
-    it('should call printError once on request failure', function (done) {
-      moxios.stubRequest('https://launchlibrary.net/1.2/launch/next/10', {
-        status: 403,
-        responseText: {
-          'status': 'fail',
-          'msg': 'Error message'
+    it('should call printError once on request failure', function () {
+      const errorSpy = jest.spyOn(helpers, 'printError');
+
+      axios.get.mockRejectedValue({
+        response: {
+          status: 403,
+          message: 'Error message'
         }
       });
 
@@ -99,9 +87,8 @@ describe('Rocket launch', function () {
         limit: launchCount
       });
 
-      moxios.wait(function () {
-        expect(helpers.printError).to.be.calledOnce;
-        done();
+      setTimeout(() => {
+        expect(errorSpy).toHaveBeenCalledTimes(1);
       });
     });
   });
