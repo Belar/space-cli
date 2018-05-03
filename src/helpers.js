@@ -6,7 +6,7 @@ exports.printMessage = function (message) {
 };
 
 exports.printError = function (message) {
-  const errorOutput = `${chalk.bgRed('Error')} ${message}`;
+  const errorOutput = chalk`{bgRed Error} ${message}`;
 
   console.log(errorOutput);
 };
