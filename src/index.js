@@ -3,11 +3,11 @@
 const yargs = require('yargs');
 
 // ./modules
-const rocketLaunch = require('./lib/modules/rocketLaunch');
-const info = require('./lib/modules/info');
-const settings = require('./lib/modules/settings');
+const rocketLaunch = require('./modules/rocketLaunch');
+const info = require('./modules/info');
+const settings = require('./modules/settings');
 
-var argv = yargs
+var argv = yargs // eslint-disable-line
   .usage('Usage: space <command> [options]')
   .demandCommand(1)
   .command('about', 'Info about the CLI', info.about)

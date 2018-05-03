@@ -1,41 +1,32 @@
-/* eslint-disable no-unused-expressions */
-/* global describe, it, before, after, beforeEach, afterEach */
-
-const sinon = require('sinon');
-const chai = require('chai');
-const expect = chai.expect;
 const fs = require('fs');
 
-const settings = require('../lib/modules/settings');
-const helpers = require('../lib/helpers');
+const settings = require('../src/modules/settings');
+const helpers = require('../src/helpers');
+
+fs.writeFile = jest.fn().mockImplementation(() => true);
+fs.existsSync = jest.fn().mockReturnValue(false);
+fs.mkdirSync = jest.fn().mockReturnValue(undefined);
 
 describe('Settings', function () {
-  let sandbox;
-
-  beforeEach(function () {
-    sandbox = sinon.sandbox.create();
-    sandbox.stub(fs, 'writeFile');
-    sandbox.stub(helpers, 'printError');
-  });
-
-  afterEach(function () {
-    sandbox.restore();
-  });
-
   describe('Save option', function () {
-    it('should call a write file for valid option value pair', function (done) {
-      settings.update({
+    it('should call a write file for valid option value pair', function () {
+      const testData = {
         'timezone': 'Europe/Paris'
-      });
-      expect(fs.writeFile).to.be.calledOnce;
-      done();
+      };
+
+      settings.update(testData);
+
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
     });
-    it('should print an error for invalid time zone', function (done) {
-      settings.update({
+    it('should print an error for invalid time zone', function () {
+      const spy = jest.spyOn(helpers, 'printError');
+      const testData = {
         'timezone': 'Invalid/Timezone'
-      });
-      expect(helpers.printError).to.be.calledOnce;
-      done();
+      };
+
+      settings.update(testData);
+
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });
