@@ -1,5 +1,5 @@
-const helpers = require('../lib/helpers');
-const info = require('../lib/modules/info');
+const helpers = require('../src/helpers');
+const info = require('../src/modules/info');
 
 describe('Info', function () {
   describe('about', function () {

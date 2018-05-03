@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const settings = require('../lib/modules/settings');
-const helpers = require('../lib/helpers');
+const settings = require('../src/modules/settings');
+const helpers = require('../src/helpers');
 
 fs.writeFile = jest.fn().mockImplementation(() => true);
 fs.existsSync = jest.fn().mockReturnValue(false);

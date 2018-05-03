@@ -1,4 +1,4 @@
-const helpers = require('../lib/helpers');
+const helpers = require('../src/helpers');
 
 describe('Time', function () {
   describe('convertTimezone', function () {

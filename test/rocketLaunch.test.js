@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const rocketLaunch = require('../lib/modules/rocketLaunch');
-const helpers = require('../lib/helpers');
+const rocketLaunch = require('../src/modules/rocketLaunch');
+const helpers = require('../src/helpers');
 
 const nextResponse = require('./mockData.js');
 
