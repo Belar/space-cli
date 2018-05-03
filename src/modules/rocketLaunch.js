@@ -28,8 +28,8 @@ exports.nextLaunch = function (argv) {
             return;
           }
           timezoneError = true;
-          let errorMessage = chalk.red('error: ' + error);
-          return helpers.printError(errorMessage);
+
+          return helpers.printError(error);
         });
       }
 
@@ -74,7 +74,7 @@ exports.nextLaunch = function (argv) {
     }
   }).catch(function (error) {
     let errorData = error.response.data;
-    let errorMessage = chalk.red(errorData.status + ': ' + errorData.msg);
+    let errorMessage = errorData.status + ': ' + errorData.msg;
     helpers.printError(errorMessage);
   });
 };
