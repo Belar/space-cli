@@ -2,9 +2,9 @@
   "name": "space-cli",
   "version": "0.6.0",
   "description": "CLI for space information",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint index.js lib/*",
+    "lint": "eslint lib/*",
     "test": "jest"
   },
   "keywords": [
@@ -21,7 +21,7 @@
     "url": "https://github.com/Belar/space-cli.git"
   },
   "bin": {
-    "space": "./index.js"
+    "space": "./lib/index.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
