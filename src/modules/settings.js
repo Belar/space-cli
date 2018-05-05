@@ -28,7 +28,7 @@ function update (argv) {
     let timezone = argv.timezone;
 
     if (!moment.tz.zone(timezone)) {
-      let errorMessage = chalk.red('error: ' + 'Unrecognised time zone.');
+      let errorMessage = 'Unrecognised time zone.';
       return helpers.printError(errorMessage);
     }
     settingsDataUpdate.timezone = timezone;
