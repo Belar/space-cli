@@ -11,7 +11,7 @@ const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
 
 function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
-    let data = fs.readFileSync(settingsFilePath);
+    let data = fs.readFileSync(settingsFilePath, 'utf8');
     return JSON.parse(data);
   }
   if (!fs.existsSync(spacecliDir)) {
