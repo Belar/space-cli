@@ -11,7 +11,7 @@ const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
 
 function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
-    let data = fs.readFileSync(settingsFilePath);
+    let data = fs.readFileSync(settingsFilePath, 'utf8');
     return JSON.parse(data);
   }
   if (!fs.existsSync(spacecliDir)) {
@@ -37,7 +37,7 @@ function update (argv) {
   let settingsJSON = JSON.stringify(settingsDataUpdate);
 
   if (settingsData.timezone !== settingsDataUpdate.timezone) {
-    return fs.writeFile(settingsFilePath, settingsJSON, (error) => {
+    return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
       if (error) {
         return helpers.printError(error.message);
       }
