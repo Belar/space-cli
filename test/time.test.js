@@ -3,6 +3,8 @@ const helpers = require('../src/helpers');
 describe('Time', function () {
   describe('convertTimezone', function () {
     it('should return converted time, error to be null', function () {
+      expect.hasAssertions();
+
       let timeOriginal = 'March 20, 2017 13:31:00 UTC';
       let expectedTime = 'March 20, 2017 14:31:00 CET';
       let timezone = 'Europe/Paris';
@@ -14,6 +16,8 @@ describe('Time', function () {
     });
 
     it('should return error message on unexisting time zone', function () {
+      expect.hasAssertions();
+
       let timeOriginal = 'March 20, 2017 13:31:00 UTC';
       let timezone = 'wrongTimezone';
 
