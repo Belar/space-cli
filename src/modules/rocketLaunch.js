@@ -5,10 +5,10 @@ const helpers = require('../helpers');
 const settings = require('./settings').getSettings();
 
 exports.nextLaunch = function (argv) {
-  let launchCount = argv.limit > 1 ? argv.limit : 1;
+  const launchCount = argv.limit > 1 ? argv.limit : 1;
 
   axios.get('https://launchlibrary.net/1.2/launch/next/' + launchCount).then((response) => {
-    let nextCount = response.data.launches.length;
+    const nextCount = response.data.launches.length;
     let timezone = argv.timezone;
     let timezoneError = false;
 
@@ -17,8 +17,8 @@ exports.nextLaunch = function (argv) {
     }
 
     for (let i = 0; i < nextCount; i++) {
-      let next = response.data.launches[i];
-      let title = chalk.yellow('Next launch:') + ' ' + next.id + ' ' + next.name;
+      const next = response.data.launches[i];
+      const title = chalk.yellow('Next launch:') + ' ' + next.id + ' ' + next.name;
       let schedule = chalk.cyan('Scheduled launch attempt:') + ' ' + next.net;
 
       if (timezone && timezone.length > 0 && !timezoneError) {
@@ -37,7 +37,7 @@ exports.nextLaunch = function (argv) {
         schedule += ' ' + chalk.bgYellow.black(' TBD ');
       }
 
-      let vidCount = next.vidURLs.length;
+      const vidCount = next.vidURLs.length;
       let broadcasts = vidCount < 1 ? chalk.cyan('Broadcasts: ') + 'TBD / Unavailable' : chalk.cyan('Broadcasts:');
 
       if (vidCount >= 1) {
@@ -52,16 +52,16 @@ exports.nextLaunch = function (argv) {
       }
 
       if (argv.details) {
-        let rocket = chalk.cyan('Rocket:') + ' ' + next.rocket.name;
+        const rocket = chalk.cyan('Rocket:') + ' ' + next.rocket.name;
 
-        let missionCount = next.missions.length;
+        const missionCount = next.missions.length;
         let missions = missionCount < 1 ? chalk.cyan('Missions: ') + 'TBD / Unknown' : chalk.cyan('Missions:');
 
         if (missionCount >= 1) {
-          for (let i = 0; i < missionCount; i++) {
-            let missionNo = i + +1 + ')';
-            let missionType = '[' + next.missions[i].typeName + ']';
-            let missionDescription = next.missions[i].description;
+          for (const i = 0; i < missionCount; i++) {
+            const missionNo = i + +1 + ')';
+            const missionType = '[' + next.missions[i].typeName + ']';
+            const missionDescription = next.missions[i].description;
 
             missions += '\n' + chalk.yellow(missionNo + ' ' + missionType) + ' ' + missionDescription;
           }
@@ -73,8 +73,8 @@ exports.nextLaunch = function (argv) {
       }
     }
   }).catch(function (error) {
-    let errorData = error.response.data;
-    let errorMessage = errorData.status + ': ' + errorData.msg;
+    const errorData = error.response.data;
+    const errorMessage = errorData.status + ': ' + errorData.msg;
     helpers.printError(errorMessage);
   });
 };
