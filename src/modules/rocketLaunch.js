@@ -9,12 +9,8 @@ exports.nextLaunch = function (argv) {
 
   axios.get('https://launchlibrary.net/1.2/launch/next/' + launchCount).then((response) => {
     const nextCount = response.data.launches.length;
-    let timezone = argv.timezone;
+    const timezone = argv.timezone && typeof argv.timezone !== 'string' && settings.timezone ? settings.timezone : argv.timezone;
     let timezoneError = false;
-
-    if (timezone && typeof timezone !== 'string' && settings.timezone) {
-      timezone = settings.timezone;
-    }
 
     for (let i = 0; i < nextCount; i++) {
       const next = response.data.launches[i];
