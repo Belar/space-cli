@@ -42,10 +42,7 @@ exports.nextLaunch = function (argv) {
         }
       }
 
-      let dataBreak = '';
-      if (nextCount > 1) {
-        dataBreak = '\n';
-      }
+      const dataBreak = nextCount > 1 ? '\n' : '';
 
       if (argv.details) {
         const rocket = chalk.cyan('Rocket:') + ' ' + next.rocket.name;
