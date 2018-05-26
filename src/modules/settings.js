@@ -11,7 +11,7 @@ const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
 
 function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
-    let data = fs.readFileSync(settingsFilePath, 'utf8');
+    const data = fs.readFileSync(settingsFilePath, 'utf8');
     return JSON.parse(data);
   }
   if (!fs.existsSync(spacecliDir)) {
@@ -21,32 +21,32 @@ function getSettings () {
 }
 
 function update (argv) {
-  let settingsData = getSettings();
-  let settingsDataUpdate = Object.create(settingsData);
+  const settingsData = getSettings();
+  const settingsDataUpdate = Object.create(settingsData);
 
   if (argv.timezone && argv.timezone.length > 0) {
-    let timezone = argv.timezone;
+    const timezone = argv.timezone;
 
     if (!moment.tz.zone(timezone)) {
-      let errorMessage = 'Unrecognised time zone.';
+      const errorMessage = 'Unrecognised time zone.';
       return helpers.printError(errorMessage);
     }
     settingsDataUpdate.timezone = timezone;
   }
 
-  let settingsJSON = JSON.stringify(settingsDataUpdate);
+  const settingsJSON = JSON.stringify(settingsDataUpdate);
 
   if (settingsData.timezone !== settingsDataUpdate.timezone) {
     return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
       if (error) {
         return helpers.printError(error.message);
       }
-      let message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
+      const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
       helpers.printMessage(message);
     });
   }
 
-  let message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
+  const message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
   return helpers.printMessage(message);
 };
 

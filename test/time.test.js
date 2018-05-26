@@ -5,9 +5,9 @@ describe('Time', function () {
     it('should return converted time, error to be null', function () {
       expect.hasAssertions();
 
-      let timeOriginal = 'March 20, 2017 13:31:00 UTC';
-      let expectedTime = 'March 20, 2017 14:31:00 CET';
-      let timezone = 'Europe/Paris';
+      const timeOriginal = 'March 20, 2017 13:31:00 UTC';
+      const expectedTime = 'March 20, 2017 14:31:00 CET';
+      const timezone = 'Europe/Paris';
 
       helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
         expect(error).toEqual(null);
@@ -18,8 +18,8 @@ describe('Time', function () {
     it('should return error message on unexisting time zone', function () {
       expect.hasAssertions();
 
-      let timeOriginal = 'March 20, 2017 13:31:00 UTC';
-      let timezone = 'wrongTimezone';
+      const timeOriginal = 'March 20, 2017 13:31:00 UTC';
+      const timezone = 'wrongTimezone';
 
       helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
         expect(typeof error).toEqual('string');

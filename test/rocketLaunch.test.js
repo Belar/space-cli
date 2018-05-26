@@ -73,7 +73,7 @@ describe('Rocket launch', function () {
         data: nextResponse.nextMultiResponse
       });
 
-      let launchCount = 5;
+      const launchCount = 5;
       rocketLaunch.nextLaunch({
         limit: launchCount
       });
@@ -98,7 +98,7 @@ describe('Rocket launch', function () {
         }
       });
 
-      let launchCount = 10;
+      const launchCount = 10;
       rocketLaunch.nextLaunch({
         limit: launchCount
       });
