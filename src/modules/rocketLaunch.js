@@ -58,7 +58,7 @@ exports.nextLaunch = function (argv) {
         let missions = missionCount < 1 ? chalk.cyan('Missions: ') + 'TBD / Unknown' : chalk.cyan('Missions:');
 
         if (missionCount >= 1) {
-          for (const i = 0; i < missionCount; i++) {
+          for (let i = 0; i < missionCount; i++) {
             const missionNo = i + +1 + ')';
             const missionType = '[' + next.missions[i].typeName + ']';
             const missionDescription = next.missions[i].description;
