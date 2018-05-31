@@ -50,7 +50,7 @@ describe('Rocket launch', function () {
     it('should call printMessage once and printError with time conversion error once', function (done) {
       expect.hasAssertions();
 
-      helpers.convertTimezone = jest.fn().mockImplementation((time, timzone, callback) => callback('Unrecognised time zone.'));
+      helpers.isValidTimezone = jest.fn().mockReturnValue(false);
       const errorSpy = jest.spyOn(helpers, 'printError');
       const messageSpy = jest.spyOn(helpers, 'printMessage');
 
