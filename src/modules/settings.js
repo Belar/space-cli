@@ -1,6 +1,5 @@
 const fs = require('fs');
 const chalk = require('chalk');
-const moment = require('moment-timezone');
 const path = require('path');
 
 const homeDir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
@@ -9,9 +8,9 @@ const spacecliDir = path.join(homeDir, '.spacecli');
 const helpers = require('../helpers');
 const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
 
-function getSettings() {
+function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
-    let data = fs.readFileSync(settingsFilePath);
+    const data = fs.readFileSync(settingsFilePath, 'utf8');
     return JSON.parse(data);
   }
   if (!fs.existsSync(spacecliDir)) {
@@ -20,33 +19,33 @@ function getSettings() {
   return {};
 }
 
-function update(argv) {
-  let settingsData = getSettings();
-  let settingsDataUpdate = Object.create(settingsData);
+function update (argv) {
+  const settingsData = getSettings();
+  const settingsDataUpdate = Object.create(settingsData);
 
   if (argv.timezone && argv.timezone.length > 0) {
-    let timezone = argv.timezone;
+    const timezone = argv.timezone;
 
-    if (!moment.tz.zone(timezone)) {
-      let errorMessage = chalk.red('error: ' + 'Unrecognised time zone.');
+    if (!helpers.isValidTimezone(timezone)) {
+      const errorMessage = 'Unrecognised time zone.';
       return helpers.printError(errorMessage);
     }
     settingsDataUpdate.timezone = timezone;
   }
 
-  let settingsJSON = JSON.stringify(settingsDataUpdate);
+  const settingsJSON = JSON.stringify(settingsDataUpdate);
 
   if (settingsData.timezone !== settingsDataUpdate.timezone) {
-    return fs.writeFile(settingsFilePath, settingsJSON, (error) => {
+    return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
       if (error) {
         return helpers.printError(error.message);
       }
-      let message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
+      const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
       helpers.printMessage(message);
     });
   }
 
-  let message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
+  const message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
   return helpers.printMessage(message);
 };
 

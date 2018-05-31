@@ -1,34 +1,27 @@
-/* eslint-disable no-unused-expressions */
-/* global describe, it, before, after, beforeEach, afterEach */
-
-const sinon = require('sinon');
-const chai = require('chai');
-const expect = chai.expect;
-
-const helpers = require('../lib/helpers');
+const helpers = require('../src/helpers');
 
 describe('Time', function () {
   describe('convertTimezone', function () {
-    it('should return converted time, error to be null', function (done) {
-      let timeOriginal = 'March 20, 2017 13:31:00 UTC';
-      let expectedTime = 'March 20, 2017 14:31:00 CET';
-      let timezone = 'Europe/Paris';
+    it('should return converted time, error to be null', function () {
+      expect.hasAssertions();
 
-      helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
-        expect(error).to.be.equal(null);
-        expect(data).to.be.equal(expectedTime);
-        done();
-      });
+      const timeOriginal = 'March 20, 2017 13:31:00 UTC';
+      const expectedTime = 'March 20, 2017 14:31:00 CET';
+      const timezone = 'Europe/Paris';
+
+      const convertedTime = helpers.convertTimezone(timeOriginal, timezone);
+
+      expect(convertedTime).toEqual(expectedTime);
     });
+  });
+  describe('timezone check', function () {
+    it('should return boolean false on unexisting time zone', function () {
+      expect.hasAssertions();
 
-    it('should return error message on unexisting time zone', function (done) {
-      let timeOriginal = 'March 20, 2017 13:31:00 UTC';
-      let timezone = 'wrongTimezone';
+      const timezone = 'wrongTimezone';
+      const isTimezoneValid = helpers.isValidTimezone(timezone);
 
-      helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
-        expect(error).to.be.a('string');
-        done();
-      });
+      expect(isTimezoneValid).toBeFalsy();
     });
   });
 });
