@@ -1,6 +1,6 @@
 {
   "name": "space-cli",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "CLI for space information",
   "main": "src/index.js",
   "scripts": {
