@@ -7,26 +7,24 @@ const settings = require('./settings').getSettings();
 exports.nextLaunch = function (argv) {
   const launchCount = argv.limit > 1 ? argv.limit : 1;
 
+  const argvHasValidTimezone = argv.timezone && helpers.isValidTimezone(argv.timezone);
+  const timezone = (argvHasValidTimezone && argv.timezone) || settings.timezone;
+
+  if (argv.timezone && !argvHasValidTimezone) {
+    helpers.printError('Unrecognized timezone. Tim will be shown in UTC');
+  }
+
   axios.get('https://launchlibrary.net/1.2/launch/next/' + launchCount).then((response) => {
     const nextCount = response.data.launches.length;
-    const timezone = argv.timezone && typeof argv.timezone !== 'string' && settings.timezone ? settings.timezone : argv.timezone;
-    let timezoneError = false;
 
     for (let i = 0; i < nextCount; i++) {
       const next = response.data.launches[i];
       const title = chalk`{yellow Next launch} ${next.id} ${next.name}`;
       let schedule = chalk`{cyan Scheduled launch attempt:} ${next.net}`;
 
-      if (timezone && timezone.length > 0 && !timezoneError) {
-        helpers.convertTimezone(next.net, timezone, function (error, data) {
-          if (!error) {
-            schedule = chalk`{cyan Scheduled launch attempt:} ${data}`;
-            return;
-          }
-          timezoneError = true;
-
-          return helpers.printError(error);
-        });
+      if (timezone) {
+        const convertedTime = helpers.convertTimezone(next.net, timezone);
+        schedule = chalk`{cyan Scheduled launch attempt:} ${convertedTime}`;
       }
 
       if (next.tbddate === 1 || next.tbdtime === 1) {
