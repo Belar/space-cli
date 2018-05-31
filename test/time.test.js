@@ -9,21 +9,19 @@ describe('Time', function () {
       const expectedTime = 'March 20, 2017 14:31:00 CET';
       const timezone = 'Europe/Paris';
 
-      helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
-        expect(error).toEqual(null);
-        expect(data).toEqual(expectedTime);
-      });
-    });
+      const convertedTime = helpers.convertTimezone(timeOriginal, timezone);
 
-    it('should return error message on unexisting time zone', function () {
+      expect(convertedTime).toEqual(expectedTime);
+    });
+  });
+  describe('timezone check', function () {
+    it('should return boolean false on unexisting time zone', function () {
       expect.hasAssertions();
 
-      const timeOriginal = 'March 20, 2017 13:31:00 UTC';
       const timezone = 'wrongTimezone';
+      const isTimezoneValid = helpers.isValidTimezone(timezone);
 
-      helpers.convertTimezone(timeOriginal, timezone, function (error, data) {
-        expect(typeof error).toEqual('string');
-      });
+      expect(isTimezoneValid).toBeFalsy();
     });
   });
 });
