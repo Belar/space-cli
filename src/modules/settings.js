@@ -1,6 +1,5 @@
 const fs = require('fs');
 const chalk = require('chalk');
-const moment = require('moment-timezone');
 const path = require('path');
 
 const homeDir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
@@ -27,7 +26,7 @@ function update (argv) {
   if (argv.timezone && argv.timezone.length > 0) {
     const timezone = argv.timezone;
 
-    if (!moment.tz.zone(timezone)) {
+    if (!helpers.isValidTimezone(timezone)) {
       const errorMessage = 'Unrecognised time zone.';
       return helpers.printError(errorMessage);
     }
