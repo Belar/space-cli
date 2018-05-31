@@ -11,6 +11,10 @@ exports.printError = function (message) {
   console.log(errorOutput);
 };
 
+exports.isValidTimezone = function (timezone) {
+  return moment.tz.zone(timezone);
+};
+
 exports.convertTimezone = function (time, timezone, callback) {
   if (moment.tz.zone(timezone)) {
     const newTime = moment.tz(new Date(time), timezone).format('MMMM D, YYYY HH:mm:ss z');
