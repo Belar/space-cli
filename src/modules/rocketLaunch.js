@@ -14,7 +14,11 @@ exports.nextLaunch = function (argv) {
     helpers.printError('Unrecognized timezone. Time will be shown in UTC');
   }
 
-  axios.get('https://launchlibrary.net/1.4/launch/next/' + launchCount).then((response) => {
+  axios.get('https://launchlibrary.net/1.4/launch/', {
+    params: {
+      next: launchCount
+    }
+  }).then((response) => {
     const nextCount = response.data.launches.length;
 
     for (let i = 0; i < nextCount; i++) {
