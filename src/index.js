@@ -20,8 +20,8 @@ const argv = yargs // eslint-disable-line
         }).option('tz', {
           alias: 'timezone',
           describe: 'Define time zone for time info e.g. America/New_York, Europe/Paris, Asia/Shanghai'
-        }).option('lt', {
-          alias: 'limit',
+        }).option('n', {
+          alias: ['number', 'limit'],
           describe: 'Define amount of upcoming events to show'
         });
     },
