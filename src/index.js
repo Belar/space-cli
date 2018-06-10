@@ -11,7 +11,7 @@ const argv = yargs // eslint-disable-line
   .usage('Usage: space <command> [options]')
   .demandCommand(1)
   .command('about', 'Info about the CLI', info.about)
-  .command('next', 'Get next rocket launch',
+  .command('launch', 'Get next rocket launch',
     function (yargs) {
       return yargs
         .option('v', {
