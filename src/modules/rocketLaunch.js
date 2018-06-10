@@ -7,7 +7,8 @@ const settings = require('./settings').getSettings();
 exports.nextLaunch = function (argv) {
   const launchCount = argv.limit > 1 ? argv.limit : 1;
 
-  const argvHasValidTimezone = argv.timezone && helpers.isValidTimezone(argv.timezone);
+  // Empty time zone option is a true flag, type condition checks if a value has been submitted
+  const argvHasValidTimezone = argv.timezone && typeof argv.timezone === 'string' && helpers.isValidTimezone(argv.timezone);
   const timezone = (argvHasValidTimezone && argv.timezone) || settings.timezone;
 
   if (argv.timezone && !argvHasValidTimezone) {
