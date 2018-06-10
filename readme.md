@@ -18,7 +18,7 @@ space <command> [options]
 
 **Example commands:**  
 `space next` - shows id, launch name, time (scheduled attempted) and available live stream options for the next rocket launch  
-`space next -d --tz Asia/Shanghai --lt 5` - shows id, launch name, time (scheduled attempted) converted to CST time zone, name of a rocket, and missions (with type and description) for the next 5 launches
+`space next -v --tz Asia/Shanghai -n 5` - shows id, launch name, time (scheduled attempted) converted to CST time zone, name of a rocket, and missions (with type and description) for the next 5 launches
 
 ## Settings  
 Settings allow you to store preferred values (e.g. time zone) which will be automatically used during [empty] option call. Settings can be found in `<user_dir>/.spacecli` dir.
