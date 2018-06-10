@@ -11,10 +11,14 @@ exports.nextLaunch = function (argv) {
   const timezone = (argvHasValidTimezone && argv.timezone) || settings.timezone;
 
   if (argv.timezone && !argvHasValidTimezone) {
-    helpers.printError('Unrecognized timezone. Tim will be shown in UTC');
+    helpers.printError('Unrecognized timezone. Time will be shown in UTC');
   }
 
-  axios.get('https://launchlibrary.net/1.2/launch/next/' + launchCount).then((response) => {
+  axios.get('https://launchlibrary.net/1.4/launch/', {
+    params: {
+      next: launchCount
+    }
+  }).then((response) => {
     const nextCount = response.data.launches.length;
 
     for (let i = 0; i < nextCount; i++) {
