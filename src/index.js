@@ -10,6 +10,7 @@ const settings = require('./modules/settings');
 const argv = yargs // eslint-disable-line
   .usage('Usage: space <command> [options]')
   .demandCommand(1)
+  .strict(true)
   .command('about', 'Info about the CLI', info.about)
   .command('launch', 'Get next rocket launch',
     function (yargs) {
