@@ -1,8 +1,9 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const path = require('path');
+const os = require('os');
 
-const homeDir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
+const homeDir = os.homedir();
 const spacecliDir = path.join(homeDir, '.spacecli');
 
 const helpers = require('../helpers');
