@@ -7,7 +7,7 @@ const homeDir = os.homedir();
 const spacecliDir = path.join(homeDir, '.spacecli');
 
 const helpers = require('../helpers');
-const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
+const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
 
 function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
