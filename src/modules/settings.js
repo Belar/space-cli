@@ -4,7 +4,8 @@ const path = require('path');
 const os = require('os');
 
 const homeDir = os.homedir();
-const spacecliDir = path.join(homeDir, '.spacecli');
+const configSubdir = os.platform() === 'win32' ? path.join('AppData', 'Local') : '.config';
+const spacecliDir = path.join(homeDir, configSubdir, 'spacecli');
 
 const helpers = require('../helpers');
 const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
