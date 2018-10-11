@@ -5,7 +5,8 @@ const os = require('os');
 
 const homeDir = os.homedir();
 const configSubdir = os.platform() === 'win32' ? path.join('AppData', 'Local') : '.config';
-const spacecliDir = path.join(homeDir, configSubdir, 'spacecli');
+const configDir = process.env.XDG_CONFIG_HOME || path.join(homeDir, configSubdir);
+const spacecliDir = path.join(configDir, 'spacecli');
 
 const helpers = require('../helpers');
 const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
