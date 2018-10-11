@@ -53,6 +53,9 @@ describe('Rocket launch', function () {
       helpers.isValidTimezone = jest.fn().mockReturnValue(false);
       const errorSpy = jest.spyOn(helpers, 'printError');
       const messageSpy = jest.spyOn(helpers, 'printMessage');
+      axios.get.mockResolvedValue({
+        data: nextResponse.nextSingleResponse
+      });
 
       rocketLaunch.nextLaunch({
         timezone: 'wrongTimezone'

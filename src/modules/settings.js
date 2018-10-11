@@ -1,12 +1,15 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const path = require('path');
+const os = require('os');
 
-const homeDir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
-const spacecliDir = path.join(homeDir, '.spacecli');
+const homeDir = os.homedir();
+const configSubdir = os.platform() === 'win32' ? path.join('AppData', 'Local') : '.config';
+const configDir = process.env.XDG_CONFIG_HOME || path.join(homeDir, configSubdir);
+const spacecliDir = path.join(configDir, 'spacecli');
 
 const helpers = require('../helpers');
-const settingsFilePath = path.join(homeDir, '.spacecli', 'settingsData.json');
+const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
 
 function getSettings () {
   if (fs.existsSync(settingsFilePath)) {
