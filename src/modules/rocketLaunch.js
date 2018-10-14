@@ -26,12 +26,9 @@ exports.nextLaunch = function (argv) {
     for (let i = 0; i < nextCount; i++) {
       const next = response.data.launches[i];
       const title = chalk`{yellow Next launch} ${next.id} ${next.name}`;
-      let schedule = chalk`{cyan Scheduled launch attempt:} ${next.net}`;
 
-      if (timezone) {
-        const convertedTime = helpers.convertTimezone(next.net, timezone);
-        schedule = chalk`{cyan Scheduled launch attempt:} ${convertedTime}`;
-      }
+      const time = timezone ? helpers.convertTimezone(next.net, timezone) : next.net;
+      let schedule = chalk`{cyan Scheduled launch attempt:} ${time}`;
 
       if (next.tbddate === 1 || next.tbdtime === 1) {
         schedule += chalk` {bgYellow.black TBD}`;
