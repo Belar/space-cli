@@ -28,11 +28,8 @@ exports.nextLaunch = function (argv) {
       const title = chalk`{yellow Next launch} ${next.id} ${next.name}`;
 
       const time = timezone ? helpers.convertTimezone(next.net, timezone) : next.net;
-      let schedule = chalk`{cyan Scheduled launch attempt:} ${time}`;
-
-      if (next.tbddate === 1 || next.tbdtime === 1) {
-        schedule += chalk` {bgYellow.black TBD}`;
-      }
+      const scheduleFlag = next.tbddate === 1 || next.tbdtime === 1 ? chalk` {bgYellow.black TBD}` : '';
+      const schedule = chalk`{cyan Scheduled launch attempt:} ${time}${scheduleFlag}`;
 
       const vidCount = next.vidURLs.length;
       let broadcasts = vidCount < 1 ? chalk`{cyan Broadcasts:} TBD / Unavailable` : chalk`{cyan Broadcasts:}`;
