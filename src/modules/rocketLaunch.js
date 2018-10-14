@@ -39,18 +39,14 @@ exports.nextLaunch = function (argv) {
       if (argv.details) {
         const rocket = chalk`{cyan Rocket:} ${next.rocket.name}`;
 
-        const missionCount = next.missions.length;
-        let missions = missionCount < 1 ? chalk`{cyan Missions:} TBD / Unknown` : chalk`{cyan Missions:}`;
+        const missionsList = !!next.missions && next.missions.length > 0 && next.missions.map((mission, index) => {
+          const missionNo = `${++index})`;
+          const missionType = `[${mission.typeName}]`;
+          const missionDescription = mission.description;
 
-        if (missionCount >= 1) {
-          for (let i = 0; i < missionCount; i++) {
-            const missionNo = `${i + +1})`;
-            const missionType = `[${next.missions[i].typeName}]`;
-            const missionDescription = next.missions[i].description;
-
-            missions += '\n' + chalk.yellow(missionNo + ' ' + missionType) + ' ' + missionDescription;
-          }
-        }
+          return chalk`{yellow ${missionNo} ${missionType}} ${missionDescription}`;
+        });
+        const missions = missionsList ? chalk`{cyan Missions:} ${missionsList.join('\n')}` : chalk`{cyan Missions:} TBD / Unknown`;
 
         helpers.printMessage(`${title}\n${schedule}\n${broadcasts}\n${rocket}\n${missions}${dataBreak}`);
       } else {
