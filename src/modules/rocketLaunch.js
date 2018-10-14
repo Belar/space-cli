@@ -31,14 +31,8 @@ exports.nextLaunch = function (argv) {
       const scheduleFlag = next.tbddate === 1 || next.tbdtime === 1 ? chalk` {bgYellow.black TBD}` : '';
       const schedule = chalk`{cyan Scheduled launch attempt:} ${time}${scheduleFlag}`;
 
-      const vidCount = next.vidURLs.length;
-      let broadcasts = vidCount < 1 ? chalk`{cyan Broadcasts:} TBD / Unavailable` : chalk`{cyan Broadcasts:}`;
-
-      if (vidCount >= 1) {
-        for (let i = 0; i < vidCount; i++) {
-          broadcasts += ` ${next.vidURLs[i]}`;
-        }
-      }
+      const hasVideoUrls = !!next.vidURLs && next.vidURLs.length > 0;
+      const broadcasts = hasVideoUrls ? chalk`{cyan Broadcasts:} ${next.vidURLs.join(' ')}` : chalk`{cyan Broadcasts:} TBD / Unavailable`;
 
       const dataBreak = nextCount > 1 ? '\n' : '';
 
