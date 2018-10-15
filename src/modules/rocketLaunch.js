@@ -34,7 +34,8 @@ exports.nextLaunch = function (argv) {
       const hasVideoUrls = !!next.vidURLs && next.vidURLs.length > 0;
       const broadcasts = hasVideoUrls ? chalk`{cyan Broadcasts:} ${next.vidURLs.join(' ')}` : chalk`{cyan Broadcasts:} TBD / Unavailable`;
 
-      const dataBreak = nextCount > 1 ? '\n' : '';
+      const launchCore = `${title}\n${schedule}\n${broadcasts}`;
+      let launchDetails = '';
 
       if (argv.details) {
         const rocket = chalk`{cyan Rocket:} ${next.rocket.name}`;
@@ -48,10 +49,11 @@ exports.nextLaunch = function (argv) {
         });
         const missions = missionsList ? chalk`{cyan Missions:} ${missionsList.join('\n')}` : chalk`{cyan Missions:} TBD / Unknown`;
 
-        helpers.printMessage(`${title}\n${schedule}\n${broadcasts}\n${rocket}\n${missions}${dataBreak}`);
-      } else {
-        helpers.printMessage(`${title}\n${schedule}\n${broadcasts}${dataBreak}`);
+        launchDetails = `\n${rocket}\n${missions}`;
       }
+
+      const dataBreak = nextCount > 1 ? '\n' : '';
+      helpers.printMessage(`${launchCore}${launchDetails}${dataBreak}`);
     }
   }).catch(function (error) {
     const errorData = error.response.data;
