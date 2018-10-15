@@ -16,6 +16,12 @@ exports.isValidTimezone = function (timezone) {
 };
 
 exports.convertTimezone = function (time, timezone) {
-  const newTime = moment.tz(new Date(time), timezone).format('MMMM D, YYYY HH:mm:ss z');
-  return newTime;
+  const isValidTimezone = exports.isValidTimezone(timezone);
+
+  if (!isValidTimezone) {
+    exports.printError('Unrecognized timezone. Time will be shown in UTC');
+    return time;
+  }
+
+  return moment.tz(new Date(time), timezone).format('MMMM D, YYYY HH:mm:ss z');
 };
