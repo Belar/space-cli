@@ -44,7 +44,8 @@ function update (argv) {
     if (error) {
       return helpers.printError(error.message);
     }
-    const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
+
+    const message = chalk`{bgGreen Success!} The file has been saved!`;
     helpers.printMessage(message);
   });
 };
