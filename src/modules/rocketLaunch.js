@@ -7,8 +7,7 @@ const settings = require('./settings').getSettings();
 exports.nextLaunch = function (argv) {
   const launchCount = argv.limit > 1 ? argv.limit : 1;
 
-  // Empty time zone option is a true flag, type condition checks if a value has been submitted
-  const timezone = (typeof argv.timezone === 'string' && argv.timezone) || settings.timezone;
+  const timezone = argv.timezone || settings.timezone;
 
   axios.get('https://launchlibrary.net/1.4/launch/', {
     params: {

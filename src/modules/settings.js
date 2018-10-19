@@ -26,14 +26,13 @@ function update (argv) {
   const settingsData = getSettings();
   const settingsDataUpdate = Object.create(settingsData);
 
-  const timezone = typeof argv.timezone === 'string' && argv.timezone;
-  const hasValidTimezone = timezone && helpers.isValidTimezone(timezone);
+  const hasValidTimezone = argv.timezone && helpers.isValidTimezone(argv.timezone);
 
   if (!hasValidTimezone) {
     const errorMessage = 'Unrecognised time zone.';
     return helpers.printError(errorMessage);
   }
-  settingsDataUpdate.timezone = timezone;
+  settingsDataUpdate.timezone = argv.timezone;
 
   const settingsJSON = JSON.stringify(settingsDataUpdate);
 

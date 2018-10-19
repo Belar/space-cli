@@ -12,7 +12,10 @@ exports.printError = function (message) {
 };
 
 exports.isValidTimezone = function (timezone) {
-  return moment.tz.zone(timezone);
+  // Empty time zone option is a true flag, type condition checks if a value has been submitted
+  const isPossibleTimezone = typeof timezone === 'string';
+
+  return isPossibleTimezone && moment.tz.zone(timezone);
 };
 
 exports.convertTimezone = function (time, timezone) {
