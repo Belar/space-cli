@@ -13,12 +13,11 @@ const spacecliDir = path.join(configDir, 'spacecli');
 const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
 
 function getSettings () {
-  if (fs.existsSync(settingsFilePath)) {
-    const data = fs.readFileSync(settingsFilePath, 'utf8');
-    return JSON.parse(data);
-  }
+  const settingsFileExists = fs.existsSync(settingsFilePath);
+  const settingsDataRaw = settingsFileExists && fs.readFileSync(settingsFilePath, 'utf8');
+  const settings = settingsDataRaw && JSON.parse(settingsDataRaw);
 
-  return {};
+  return settings || {};
 }
 
 function update (argv) {
