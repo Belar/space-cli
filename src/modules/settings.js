@@ -17,13 +17,13 @@ function getSettings () {
     const data = fs.readFileSync(settingsFilePath, 'utf8');
     return JSON.parse(data);
   }
-  if (!fs.existsSync(spacecliDir)) {
-    fs.mkdirSync(spacecliDir);
-  }
+
   return {};
 }
 
 function update (argv) {
+  const configDirExists = fs.existsSync(spacecliDir);
+
   const settingsData = getSettings();
   const settingsDataUpdate = Object.create(settingsData);
 
@@ -40,6 +40,10 @@ function update (argv) {
   const settingsJSON = JSON.stringify(settingsDataUpdate);
 
   if (settingsData.timezone !== settingsDataUpdate.timezone) {
+    if (!configDirExists) {
+      fs.mkdirSync(spacecliDir);
+    }
+
     return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
       if (error) {
         return helpers.printError(error.message);
