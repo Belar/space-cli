@@ -23,8 +23,8 @@ function getSettings () {
 function update (argv) {
   const configDirExists = fs.existsSync(spacecliDir);
 
-  const settingsData = getSettings();
-  const settingsDataUpdate = Object.create(settingsData);
+  const currentSettings = getSettings();
+  const settings = Object.create(currentSettings);
 
   const hasValidTimezone = argv.timezone && helpers.isValidTimezone(argv.timezone);
 
@@ -32,9 +32,9 @@ function update (argv) {
     const errorMessage = 'Unrecognised time zone.';
     return helpers.printError(errorMessage);
   }
-  settingsDataUpdate.timezone = argv.timezone;
+  settings.timezone = argv.timezone;
 
-  const settingsJSON = JSON.stringify(settingsDataUpdate);
+  const settingsJSON = JSON.stringify(settings);
 
   if (!configDirExists) {
     fs.mkdirSync(spacecliDir);
