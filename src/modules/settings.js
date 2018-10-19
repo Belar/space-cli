@@ -10,7 +10,7 @@ const configSubdir = os.platform() === 'win32' ? path.join('AppData', 'Local') :
 const configDir = process.env.XDG_CONFIG_HOME || path.join(homeDir, configSubdir);
 const spacecliDir = path.join(configDir, 'spacecli');
 
-const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
+const settingsFilePath = path.join(spacecliDir, 'settings.json');
 
 function getSettings () {
   const settingsFileExists = fs.existsSync(settingsFilePath);
