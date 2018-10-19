@@ -36,22 +36,17 @@ function update (argv) {
 
   const settingsJSON = JSON.stringify(settingsDataUpdate);
 
-  if (settingsData.timezone !== settingsDataUpdate.timezone) {
-    if (!configDirExists) {
-      fs.mkdirSync(spacecliDir);
-    }
-
-    return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
-      if (error) {
-        return helpers.printError(error.message);
-      }
-      const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
-      helpers.printMessage(message);
-    });
+  if (!configDirExists) {
+    fs.mkdirSync(spacecliDir);
   }
 
-  const message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
-  return helpers.printMessage(message);
+  return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
+    if (error) {
+      return helpers.printError(error.message);
+    }
+    const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
+    helpers.printMessage(message);
+  });
 };
 
 module.exports = {
