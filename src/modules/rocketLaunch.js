@@ -9,6 +9,12 @@ exports.nextLaunch = function (argv) {
 
   const timezone = argv.timezone || settings.timezone;
 
+  // Central validation with error outside time conversion method prevents error from being shown with every conversion e.g. when requesting info about n launches
+  const isValidTimezone = helpers.isValidTimezone(timezone);
+  if (!!timezone && !isValidTimezone) {
+    helpers.printError('Unrecognized timezone. Time will be shown in UTC');
+  }
+
   axios.get('https://launchlibrary.net/1.4/launch/', {
     params: {
       next: launchCount
@@ -20,7 +26,7 @@ exports.nextLaunch = function (argv) {
       const next = response.data.launches[i];
       const title = chalk`{yellow Next launch} ${next.id} ${next.name}`;
 
-      const time = helpers.convertTimezone(next.net, timezone);
+      const time = isValidTimezone ? helpers.convertTimezone(next.net, timezone) : next.net;
       const scheduleFlag = next.tbddate === 1 || next.tbdtime === 1 ? chalk` {bgYellow.black TBD}` : '';
       const schedule = chalk`{cyan Scheduled launch attempt:} ${time}${scheduleFlag}`;
 

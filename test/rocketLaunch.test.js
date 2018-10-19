@@ -87,6 +87,29 @@ describe('Rocket launch', function () {
       });
     });
 
+    it('should call printMessage once for each launch and printError with time conversion error once for all', function (done) {
+      expect.hasAssertions();
+
+      helpers.isValidTimezone = jest.fn().mockReturnValue(false);
+      const errorSpy = jest.spyOn(helpers, 'printError');
+      const messageSpy = jest.spyOn(helpers, 'printMessage');
+      axios.get.mockResolvedValue({
+        data: nextResponse.nextMultiResponse
+      });
+
+      const launchCount = 5;
+      rocketLaunch.nextLaunch({
+        timezone: 'wrongTimezone',
+        limit: launchCount
+      });
+
+      setTimeout(() => {
+        expect(errorSpy).toHaveBeenCalledTimes(1);
+        expect(messageSpy).toHaveBeenCalledTimes(launchCount);
+        done();
+      });
+    });
+
     it('should call printError once on request failure', function (done) {
       expect.hasAssertions();
 
