@@ -3,53 +3,51 @@ const chalk = require('chalk');
 const path = require('path');
 const os = require('os');
 
+const helpers = require('../helpers');
+
 const homeDir = os.homedir();
 const configSubdir = os.platform() === 'win32' ? path.join('AppData', 'Local') : '.config';
 const configDir = process.env.XDG_CONFIG_HOME || path.join(homeDir, configSubdir);
 const spacecliDir = path.join(configDir, 'spacecli');
 
-const helpers = require('../helpers');
-const settingsFilePath = path.join(spacecliDir, 'settingsData.json');
+const settingsFilePath = path.join(spacecliDir, 'settings.json');
 
 function getSettings () {
-  if (fs.existsSync(settingsFilePath)) {
-    const data = fs.readFileSync(settingsFilePath, 'utf8');
-    return JSON.parse(data);
-  }
-  if (!fs.existsSync(spacecliDir)) {
-    fs.mkdirSync(spacecliDir);
-  }
-  return {};
+  const settingsFileExists = fs.existsSync(settingsFilePath);
+  const settingsDataRaw = settingsFileExists && fs.readFileSync(settingsFilePath, 'utf8');
+  const settings = settingsDataRaw && JSON.parse(settingsDataRaw);
+
+  return settings || {};
 }
 
 function update (argv) {
-  const settingsData = getSettings();
-  const settingsDataUpdate = Object.create(settingsData);
+  const configDirExists = fs.existsSync(spacecliDir);
 
-  if (argv.timezone && argv.timezone.length > 0) {
-    const timezone = argv.timezone;
+  const currentSettings = getSettings();
+  const settings = Object.create(currentSettings);
 
-    if (!helpers.isValidTimezone(timezone)) {
-      const errorMessage = 'Unrecognised time zone.';
-      return helpers.printError(errorMessage);
+  const hasValidTimezone = argv.timezone && helpers.isValidTimezone(argv.timezone);
+
+  if (!hasValidTimezone) {
+    const errorMessage = 'Unrecognised time zone.';
+    return helpers.printError(errorMessage);
+  }
+  settings.timezone = argv.timezone;
+
+  const settingsJSON = JSON.stringify(settings);
+
+  if (!configDirExists) {
+    fs.mkdirSync(spacecliDir);
+  }
+
+  return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
+    if (error) {
+      return helpers.printError(error.message);
     }
-    settingsDataUpdate.timezone = timezone;
-  }
 
-  const settingsJSON = JSON.stringify(settingsDataUpdate);
-
-  if (settingsData.timezone !== settingsDataUpdate.timezone) {
-    return fs.writeFile(settingsFilePath, settingsJSON, 'utf8', (error) => {
-      if (error) {
-        return helpers.printError(error.message);
-      }
-      const message = chalk.bgGreen('Success!') + ' ' + 'The file has been saved!';
-      helpers.printMessage(message);
-    });
-  }
-
-  const message = chalk.bgGreen('OK') + ' ' + 'Settings are correct, no changes required.';
-  return helpers.printMessage(message);
+    const message = chalk`{bgGreen Success!} The file has been saved!`;
+    helpers.printMessage(message);
+  });
 };
 
 module.exports = {
