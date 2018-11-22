@@ -11,19 +11,27 @@ exports.listArticles = function (argv) {
       limit: articleCount
     }
   }).then((response) => {
-    const articlesCount = response.data.length;
+    const articles = response.data;
 
-    for (let i = 0; i < articlesCount; i++) {
-      const article = response.data[i];
-
+    const articlesByDate = articles.reduce((byDate, article) => {
       const title = chalk`${article.title}`;
 
       const publishedAt = new Date(article.date_published * 1000).toLocaleDateString();
-      const articleDetails = chalk`{yellow ${article.news_site_long}} ${publishedAt}`;
+      const articleDetails = chalk`{yellow ${article.news_site_long}}`;
 
       const readSource = `Read on ${article.url}`;
 
-      helpers.printMessage(`${articleDetails} | ${title}\n${readSource}\n`);
+      const dayArticles = byDate[publishedAt] = byDate[publishedAt] || [];
+      dayArticles.push(`${articleDetails} | ${title}\n${readSource}\n`);
+
+      return byDate;
+    }, {});
+
+    for (const date in articlesByDate) {
+      const dayArticles = articlesByDate[date];
+
+      helpers.printMessage(`${date}\n----------`);
+      dayArticles.forEach(article => helpers.printMessage(article));
     }
   }).catch(error => {
     const errorMessage = `${error.code}: ${error.message}`;
