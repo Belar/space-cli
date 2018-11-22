@@ -46,7 +46,7 @@ exports.nextLaunch = function (argv) {
 
           return chalk`{yellow ${missionNo} ${missionType}} ${missionDescription}`;
         });
-        const missions = missionsList ? chalk`{cyan Missions:} ${missionsList.join('\n')}` : chalk`{cyan Missions:} TBD / Unknown`;
+        const missions = missionsList ? chalk`{cyan Missions:}\n${missionsList.join('\n')}` : chalk`{cyan Missions:} TBD / Unknown`;
 
         launchDetails = `\n${rocket}\n${missions}`;
       }
