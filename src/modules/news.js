@@ -16,9 +16,14 @@ exports.listArticles = function (argv) {
     for (let i = 0; i < articlesCount; i++) {
       const article = response.data[i];
 
-      const title = chalk`${article.title} {yellow ${article.news_site_long}}`;
+      const title = chalk`${article.title}`;
 
-      helpers.printMessage(`${title}`);
+      const publishedAt = new Date(article.date_published * 1000).toLocaleDateString();
+      const articleDetails = chalk`{yellow ${article.news_site_long}} ${publishedAt}`;
+
+      const readSource = `Read on ${article.url}`;
+
+      helpers.printMessage(`${articleDetails} | ${title}\n${readSource}\n`);
     }
   }).catch(error => {
     const errorMessage = `${error.code}: ${error.message}`;
