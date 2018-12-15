@@ -22,7 +22,7 @@ exports.listArticles = function (argv) {
       const readSource = `Read on ${article.url}`;
 
       const dayArticles = byDate[publishedAt] = byDate[publishedAt] || [];
-      dayArticles.push(`${articleDetails} | ${title}\n${readSource}\n`);
+      dayArticles.push(`${articleDetails} | ${title}\n${readSource} \n`);
 
       return byDate;
     }, {});
