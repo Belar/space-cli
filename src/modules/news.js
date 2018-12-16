@@ -4,12 +4,19 @@ const chalk = require('chalk');
 const helpers = require('../helpers');
 
 exports.listArticles = function (argv) {
-  const articleCount = argv.limit > 1 ? argv.limit : 1;
+  const requestParams = {};
+
+  if (argv.limit && argv.limit > 1) {
+    requestParams.limit = argv.limit;
+  } else {
+    const now = new Date();
+    const todayStart = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 1);
+    const fullDayMs = 24 * 60 * 60 * 1000;
+    requestParams.since_added = (todayStart - fullDayMs) / 1000;
+  }
 
   axios.get('https://api.spaceflightnewsapi.net/articles/', {
-    params: {
-      limit: articleCount
-    }
+    params: requestParams
   }).then((response) => {
     const articles = response.data;
 
