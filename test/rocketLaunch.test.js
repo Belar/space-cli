@@ -3,7 +3,7 @@ const axios = require('axios');
 const rocketLaunch = require('../src/modules/rocketLaunch');
 const helpers = require('../src/helpers');
 
-const nextResponse = require('./mockData.js');
+const nextResponse = require('./mockData/launch.js');
 
 jest.mock('axios');
 
