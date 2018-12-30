@@ -4,6 +4,7 @@ const yargs = require('yargs');
 
 // ./modules
 const rocketLaunch = require('./modules/rocketLaunch');
+const news = require('./modules/news');
 const info = require('./modules/info');
 const settings = require('./modules/settings');
 
@@ -27,6 +28,16 @@ const argv = yargs // eslint-disable-line
         });
     },
     rocketLaunch.nextLaunch
+  )
+  .command('news', 'Get recent news articles',
+    function (yargs) {
+      return yargs
+        .option('n', {
+          alias: ['number', 'limit'],
+          describe: 'Define amount of articles to show'
+        });
+    },
+    news.listArticles
   )
   .command('settings', 'Set default settings',
     function (yargs) {
