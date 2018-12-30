@@ -26,6 +26,6 @@ Settings allow you to store preferred values (e.g. time zone) which will be auto
 
 **Example commands:**  
 `space settings --tz Asia/Shanghai` - save Asia/Shanghai as preferred time zone  
-`space launch --tz` - Command will automatically use Asia/Shanghai for time convertion, unless different time zone is specified
+`space launch --tz` - Command will automatically use Asia/Shanghai for time conversion, unless different time zone is specified
 
 Space CLI is in active development, to see currently available commands and options, use `space -h`.
