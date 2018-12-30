@@ -18,7 +18,7 @@ space <command> [options]
 
 **Example commands:**  
 `space launch` - shows id, launch name, time (scheduled attempted) and available live stream options for the next rocket launch  
-`space launch -v --tz Asia/Shanghai -n 5` - shows id, launch name, time (scheduled attempted) converted to CST time zone, name of a rocket, and missions (with type and description) for the next 5 launches
+`space launch -v --tz Asia/Shanghai -n 5` - shows id, launch name, time (scheduled attempted) converted to CST time zone, name of a rocket, and missions (with type and description) for the next 5 launches  
 `space news` - shows news articles (source, title and link) from current and previous day, grouped by date
 
 ## Settings  
