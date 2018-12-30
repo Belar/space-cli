@@ -22,7 +22,8 @@ space <command> [options]
 `space news` - shows news articles (source, title and link) from current and previous day, grouped by date
 
 ## Settings  
-Settings allow you to store preferred values (e.g. time zone) which will be automatically used during [empty] option call. Settings can be found in `<user_dir>/.spacecli` dir.
+Settings allow you to store preferred values (e.g. time zone), which will be automatically used with a command unless other value is provided (in-command values are prioritized over settings).  
+Settings file (`settings.json`) can be found in `spacecli`, placed in system's respective config directory (set with `XDG_CONFIG_HOME`, or `~/.config` for *nix and `~/AppData/Local/` for win)
 
 **Example commands:**  
 `space settings --tz Asia/Shanghai` - save Asia/Shanghai as preferred time zone  
